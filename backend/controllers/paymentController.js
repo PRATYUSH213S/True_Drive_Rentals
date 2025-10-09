@@ -3,7 +3,7 @@ import Booking from "../models/bookingModel.js";
 import Stripe from "stripe";
 import dotenv from "dotenv";
 dotenv.config();
-const CLIENT_URL = process.env.CLIENT_URL || "https://true-drive-rentals-frontend-jssk.onrender.com";
+const CLIENT_URL = process.env.CLIENT_URL || "https://true-drive-rentals-frontend.onrender.com";
 const STRIPE_API_VERSION = "2022-11-15";
 
 const getStripe = () => {
