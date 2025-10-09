@@ -22,7 +22,16 @@ const PORT = process.env.PORT || 5000;
 
 // middlewares
 
-app.use(cors()); // allow CORS for API calls
+app.use(cors({
+  origin: [
+    'https://true-drive-rentals-frontend.onrender.com',
+    'https://true-drive-rentals-admin.onrender.com',
+    'http://localhost:5175',
+    'http://localhost:5174',
+    'http://localhost:5178'
+  ],
+  credentials: true
+})); // allow CORS for API calls
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" }, // <-- important
