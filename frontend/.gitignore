@@ -1,0 +1,21 @@
+﻿# Node
+**/node_modules/
+# Logs
+*.log
+# Builds
+**/dist/
+**/.vite/
+**/.cache/
+# Env files
+.env
+.env.*
+backend/.env
+admin/.env
+frontend/.env
+# Uploads
+backend/uploads/
+# Editor/OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
