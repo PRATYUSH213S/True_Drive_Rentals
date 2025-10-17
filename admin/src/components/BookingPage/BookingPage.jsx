@@ -24,7 +24,7 @@ import axios from "axios";
 import { BookingPageStyles, statusConfig } from "../../assets/dummyStyles";
 
 // Constants and configuration
-const baseURL = "http://localhost:5000";
+const baseURL = "https://true-drive-rentals-backend.onrender.com";
 const api = axios.create({ baseURL, headers: { Accept: "application/json" } });
 
 // Utility functions
