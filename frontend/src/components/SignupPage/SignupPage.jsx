@@ -47,7 +47,7 @@ const SignupPage = () => {
 
     setLoading(true);
     try {
-      const base = "http://localhost:5000";
+      const base = "https://true-drive-rentals-backend.onrender.com";
       const url = `${base}/api/auth/register`;
 
       const res = await axios.post(url, formData, {
