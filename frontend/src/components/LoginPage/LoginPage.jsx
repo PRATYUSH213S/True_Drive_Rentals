@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FaUser, FaLock, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import logo from "../../assets/logocar.png";
@@ -103,10 +103,10 @@ const LoginPage = () => {
       </div>
 
       {/* Back Button */}
-      <a href="/" className={loginStyles.backButton}>
+      <Link to="/" className={loginStyles.backButton}>
         <FaArrowLeft className="text-sm sm:text-base" />
         <span className="font-medium text-xs sm:text-sm">Back to Home</span>
-      </a>
+      </Link>
 
       {/* Login Card */}
       <div
@@ -191,10 +191,10 @@ const LoginPage = () => {
           </form>
 
           <div className={loginStyles.signupSection}>
-            <p className={loginStyles.signupText}>Don’t have an account?</p>
-            <a href="/signup" className={loginStyles.signupButton}>
+            <p className={loginStyles.signupText}>Don't have an account?</p>
+            <Link to="/signup" className={loginStyles.signupButton}>
               CREATE ACCOUNT
-            </a>
+            </Link>
           </div>
         </div>
       </div>

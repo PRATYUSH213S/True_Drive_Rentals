@@ -30,9 +30,10 @@ const CarPage = () => {
   const [error, setError] = useState("");
 
   const abortControllerRef = useRef(null);
+  
 
   // base URL for API (use env var in production)
-  const base = "http://localhost:5000";
+  const base = "https://true-drive-rentals-backend.onrender.com";
 
   // number of cars to fetch (backend should accept limit param)
   const limit = 12;

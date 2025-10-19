@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/logocar.png";
 import { signupStyles } from "../../assets/dummyStyles";
@@ -47,7 +47,7 @@ const SignupPage = () => {
 
     setLoading(true);
     try {
-      const base = "http://localhost:5000";
+      const base = "https://true-drive-rentals-backend.onrender.com";
       const url = `${base}/api/auth/register`;
 
       const res = await axios.post(url, formData, {
@@ -146,10 +146,10 @@ const SignupPage = () => {
       </div>
 
       {/* Back Button */}
-      <a href="/" className={signupStyles.backButton}>
+      <Link to="/" className={signupStyles.backButton}>
         <FaArrowLeft className="text-xs sm:text-sm group-hover:-translate-x-1 transition-transform" />
         <span className="font-medium text-xs sm:text-sm">Back to Home</span>
-      </a>
+      </Link>
 
       {/* Signup Card */}
       <div
@@ -300,8 +300,8 @@ const SignupPage = () => {
             style={{ borderColor: "rgba(255,255,255,0.06)" }}
           >
             <p className={signupStyles.signinText}>Already have an account?</p>
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className={signupStyles.signinButton}
               style={{
                 borderRadius: "16px",
@@ -309,7 +309,7 @@ const SignupPage = () => {
               }}
             >
               LOGIN TO YOUR ACCOUNT
-            </a>
+            </Link>
           </div>
         </div>
       </div>

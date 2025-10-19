@@ -23,7 +23,7 @@ const HomeCars = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const abortRef = useRef(null);
 
-  const base = "http://localhost:5000";
+  const base = "https://true-drive-rentals-backend.onrender.com";
   const api = axios.create({
     baseURL: base,
     headers: { Accept: "application/json" },
@@ -382,7 +382,7 @@ const HomeCars = () => {
 
                 <div className={styles.priceBadge}>
                   <span className={styles.priceText}>
-                    ₹{car.dailyRate ?? car.price ?? 0}/day
+                    ${car.dailyRate ?? car.price ?? 0}/day
                   </span>
                 </div>
 
