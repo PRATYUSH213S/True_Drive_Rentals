@@ -18,7 +18,7 @@ import { styles } from "../../assets/dummyStyles";
 
 // Constants and configuration
 const BASE =
-  import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:5000";
+  import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "https://true-drive-rentals-backend.onrender.com";
 const api = axios.create({
   baseURL: BASE,
   headers: { Accept: "application/json" },
