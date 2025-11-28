@@ -23,7 +23,8 @@ import axios from "axios";
 import carsData from "../CarPage/carsData";
 import { carDetailStyles } from "../../assets/dummyStyles";
 
-const API_BASE = "http://localhost:5000";
+// Use environment variable or fallback to deployed backend
+const API_BASE = (import.meta.env && import.meta.env.VITE_API_URL) || "https://true-drive-rentals-backend.onrender.com";
 const api = axios.create({
   baseURL: API_BASE,
   headers: { Accept: "application/json" },
@@ -255,8 +256,16 @@ const CarDetailPage = () => {
         err?.message === "canceled";
       if (canceled) return;
       console.error("Booking error:", err);
+      
+      // Handle network errors specifically
+      if (err?.code === "ERR_NETWORK" || err?.message?.includes("Network Error")) {
+        toast.error("Network Error: Cannot connect to server. Please check your connection and try again.");
+        return;
+      }
+      
       const serverMessage =
         err?.response?.data?.message ||
+        err?.response?.data?.error ||
         err?.response?.data ||
         err.message ||
         "Booking failed";
