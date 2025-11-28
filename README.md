@@ -73,7 +73,7 @@ Each app exposes the usual Vite scripts:
 API Overview
 ------------
 
-Base URL: http://localhost:5000 (configurable)
+Base URL: https://true-drive-rentals-backend.onrender.com(configurable)
 
 - Auth: /api/auth/register, /api/auth/login, /api/auth/me
 - Cars: /api/cars (CRUD, image upload)
