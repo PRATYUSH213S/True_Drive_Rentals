@@ -5,7 +5,8 @@ import validator from "validator";
 import User from "../models/userModel.js";
 
 const TOKEN_EXPIRES_IN =  "24h";
-const JWT_SECRET = 'your_jwt_secret_here';
+// Use environment variable, fallback to default for development
+const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_here';
 const createToken = (userId) => {
   const secret = JWT_SECRET;
   if (!secret) throw new Error("JWT_SECRET is not defined on the server");
@@ -75,7 +76,7 @@ export async function login(req, res) {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ success: false, message: "Invalid email or password." });
 
-   const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
     return res.status(200).json({
   success: true,
   message: "Login successful!",
