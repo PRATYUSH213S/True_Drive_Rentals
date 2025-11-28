@@ -513,11 +513,20 @@ const MyBookings = () => {
       if (err?.name === "CanceledError" || err?.message === "canceled") {
         setError("Request cancelled / timed out");
       } else {
-        setError(
-          err.response?.data?.message ||
-            err.message ||
-            "Failed to load bookings"
-        );
+        const errorMessage = err.response?.data?.message || err.message || "Failed to load bookings";
+        setError(errorMessage);
+        
+        // If token is invalid or expired, clear it and redirect to login
+        if (err.response?.status === 401 || 
+            errorMessage.toLowerCase().includes("token") || 
+            errorMessage.toLowerCase().includes("unauthorized")) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          // Redirect to login after a short delay
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 2000);
+        }
       }
       setLoading(false);
     } finally {

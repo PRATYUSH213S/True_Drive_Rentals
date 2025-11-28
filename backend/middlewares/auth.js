@@ -27,10 +27,17 @@ export default async function authMiddleware(req, res, next) {
         req.user = user;
         next();
     } catch (err) {
-        console.error('JWT verification failed:', err);
+        console.error('JWT verification failed:', err.message);
+        // Provide more specific error messages
+        let errorMessage = 'Token invalid or expired';
+        if (err.name === 'TokenExpiredError') {
+            errorMessage = 'Token expired. Please log in again.';
+        } else if (err.name === 'JsonWebTokenError') {
+            errorMessage = 'Invalid token. Please log in again.';
+        }
         return res
             .status(401)
-            .json({ success: false, message: 'Token invalid or expired' });
+            .json({ success: false, message: errorMessage });
     }
 }
 
