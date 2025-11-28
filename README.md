@@ -89,6 +89,33 @@ frontend/    # Customer UI (React + Vite)
 admin/       # Admin dashboard (React + Vite)
 ```
 
+Deployment on Render
+--------------------
+
+### Backend Environment Variables
+
+In your Render backend service, set these environment variables:
+
+```
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/database?retryWrites=true&w=majority
+JWT_SECRET=your_jwt_secret_key_here
+STRIPE_SECRET_KEY=sk_live_your_stripe_secret_key_here  # or sk_test_ for testing
+CLIENT_URL=https://true-drive-rentals-frontend.onrender.com
+PORT=5000
+```
+
+**Important for Stripe:**
+1. Get your Stripe keys from: https://dashboard.stripe.com/apikeys
+2. Use `sk_test_...` for testing, `sk_live_...` for production
+3. Make sure `STRIPE_SECRET_KEY` is set, otherwise payments will fail with "Failed to create Stripe session"
+
+### Frontend Deployment
+
+The `frontend/static.json` file is included to handle SPA routing on Render. This ensures routes like `/cars`, `/bookings` work correctly.
+
+**Build Command:** `npm run build`
+**Publish Directory:** `dist`
+
 Contributing / Notes
 --------------------
 

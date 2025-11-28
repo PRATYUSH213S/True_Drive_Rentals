@@ -34,13 +34,25 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const whatsappMessage =
-      `Name: ${formData.name}%0A` +
-      `Email: ${formData.email}%0A` +
-      `Phone: ${formData.phone}%0A` +
-      `Car Type: ${formData.carType}%0A` +
+    // Format phone number: remove all spaces, +, and non-digit characters except leading country code
+    // WhatsApp format: country code + number (digits only, no + or spaces)
+    const rawPhone = '+91 7510002564'; // Source phone number
+    const phoneNumber = rawPhone.replace(/\D/g, ''); // Remove all non-digits: becomes "917510002564"
+    
+    // Build message with proper encoding
+    const messageText = 
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Phone: ${formData.phone}\n` +
+      `Car Type: ${formData.carType}\n` +
       `Message: ${formData.message}`;
-    window.open(`https://wa.me/+91 7510002564?text=${whatsappMessage}`, '_blank');
+    
+    // Properly encode the message for URL
+    const encodedMessage = encodeURIComponent(messageText);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    // Open WhatsApp (will work on mobile if app installed, otherwise opens web)
+    window.open(whatsappUrl, '_blank');
 
     setFormData({ name: '', email: '', phone: '', carType: '', message: '' });
   };

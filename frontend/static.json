@@ -1,0 +1,20 @@
+{
+  "routes": {
+    "/": "index.html",
+    "/cars": "index.html",
+    "/cars/:id": "index.html",
+    "/bookings": "index.html",
+    "/contact": "index.html",
+    "/login": "index.html",
+    "/signup": "index.html",
+    "/success": "index.html",
+    "/cancel": "index.html"
+  },
+  "rewrites": [
+    {
+      "source": "**",
+      "destination": "/index.html"
+    }
+  ]
+}
+

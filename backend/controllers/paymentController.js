@@ -3,7 +3,8 @@ import Booking from "../models/bookingModel.js";
 import Stripe from "stripe";
 import dotenv from "dotenv";
 dotenv.config();
-const CLIENT_URL = process.env.CLIENT_URL || "https://true-drive-rentals-frontend.onrender.com";
+// Support both CLIENT_URL and FRONTEND_URL for compatibility
+const CLIENT_URL = process.env.CLIENT_URL || process.env.FRONTEND_URL || "https://true-drive-rentals-frontend.onrender.com";
 const STRIPE_API_VERSION = "2022-11-15";
 
 const getStripe = () => {
@@ -68,8 +69,12 @@ export const createCheckoutSession = async (req, res) => {
 
 
     let stripe;
-    try { stripe = getStripe(); } catch (err) {
+    try { 
+      stripe = getStripe(); 
+      console.log("Stripe initialized successfully");
+    } catch (err) {
       // cleanup booking if stripe not configured
+      console.error("Stripe initialization failed:", err.message);
       await Booking.findByIdAndDelete(booking._id).catch(() => {});
       return res.status(500).json({ success: false, message: "Payments not configured", error: err.message });
     }
@@ -106,8 +111,23 @@ export const createCheckoutSession = async (req, res) => {
         },
       });
     } catch (stripeErr) {
+      console.error("Stripe session creation failed:", {
+        message: stripeErr.message,
+        type: stripeErr.type,
+        code: stripeErr.code,
+        statusCode: stripeErr.statusCode,
+        raw: stripeErr.raw
+      });
       await Booking.findByIdAndDelete(booking._id).catch(() => {});
-      return res.status(500).json({ success: false, message: "Failed to create Stripe session", error: stripeErr.message || String(stripeErr) });
+      return res.status(500).json({ 
+        success: false, 
+        message: "Failed to create Stripe session", 
+        error: stripeErr.message || String(stripeErr),
+        details: process.env.NODE_ENV === 'development' ? {
+          type: stripeErr.type,
+          code: stripeErr.code
+        } : undefined
+      });
     }
 
     // attach session info to booking

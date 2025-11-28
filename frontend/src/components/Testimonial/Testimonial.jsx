@@ -1,5 +1,6 @@
 // src/components/Testimonial.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaStar, FaQuoteLeft, FaCar, FaRoad, FaKey, FaMapMarkerAlt } from 'react-icons/fa';
 import { GiSteeringWheel } from 'react-icons/gi';
 import testimonials from './Testimonialdata';
@@ -141,9 +142,9 @@ const Testimonial = () => (
         <p className={styles.ctaText}>
           Join thousands of satisfied customers who have experienced our premium fleet and exceptional service.
         </p>
-        <a href='/cars' className={styles.ctaButton}>
+        <Link to='/cars' className={styles.ctaButton}>
           Book Your Luxury Ride
-        </a>
+        </Link>
       </div>
     </div>
 
