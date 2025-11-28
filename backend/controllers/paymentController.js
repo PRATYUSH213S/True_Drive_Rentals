@@ -4,7 +4,20 @@ import Stripe from "stripe";
 import dotenv from "dotenv";
 dotenv.config();
 // Support both CLIENT_URL and FRONTEND_URL for compatibility
-const CLIENT_URL = process.env.CLIENT_URL || process.env.FRONTEND_URL || "https://true-drive-rentals-frontend.onrender.com";
+// IMPORTANT: For production, CLIENT_URL must be set to the deployed frontend URL
+// If FRONTEND_URL is set to localhost, ignore it and use the default production URL
+let CLIENT_URL = process.env.CLIENT_URL;
+if (!CLIENT_URL) {
+  // If FRONTEND_URL is set but points to localhost, ignore it
+  const frontendUrl = process.env.FRONTEND_URL;
+  if (frontendUrl && !frontendUrl.includes('localhost') && !frontendUrl.includes('127.0.0.1')) {
+    CLIENT_URL = frontendUrl;
+  } else {
+    // Default to production frontend URL
+    CLIENT_URL = "https://true-drive-rentals-frontend.onrender.com";
+  }
+}
+console.log("Payment redirect URL (CLIENT_URL):", CLIENT_URL);
 const STRIPE_API_VERSION = "2022-11-15";
 
 const getStripe = () => {
